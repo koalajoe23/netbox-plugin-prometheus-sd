@@ -1,3 +1,5 @@
+from itertools import permutations
+
 from django.test import TestCase
 from ..api.serializers import (
     PrometheusDeviceSerializer,
@@ -61,6 +63,17 @@ class PrometheusVirtualMachineSerializerTests(TestCase):
             utils.dictContainsSubset({"__scheme__": "https"}, data_list[0]["labels"])
         )
         self.assertEqual(data_list[0]["targets"], ["vm-full-01.example.com:4242"])
+        self.assertTrue(
+            any(
+                utils.dictContainsSubset(
+                    {
+                        "__meta_netbox_custom_config": ",".join(p),
+                    },
+                    data_list[0]["labels"],
+                )
+                for p in permutations(['metrics_path', 'port', 'scheme'])
+            )
+        )
 
         self.assertEqual(data_list[1]["targets"], ["vm-full-01.example.com:4243"])
         self.assertTrue(
@@ -69,6 +82,29 @@ class PrometheusVirtualMachineSerializerTests(TestCase):
                     "__param_target": "other.host.xyz",
                 },
                 data_list[1]["labels"],
+            )
+        )
+        self.assertTrue(
+            any(
+                utils.dictContainsSubset(
+                    {
+                        "__meta_netbox_custom_config": ",".join(p),
+                    },
+                    data_list[1]["labels"],
+                )
+                for p in permutations(['port', 'params'])
+            )
+        )
+
+        self.assertTrue(
+            any(
+                utils.dictContainsSubset(
+                    {
+                        "__meta_netbox_custom_config": ",".join(p),
+                    },
+                    data_list[2]["labels"],
+                )
+                for p in permutations(['host', 'port'])
             )
         )
 
