@@ -63,6 +63,14 @@ class PrometheusVirtualMachineSerializerTests(TestCase):
         self.assertEqual(data_list[0]["targets"], ["vm-full-01.example.com:4242"])
 
         self.assertEqual(data_list[1]["targets"], ["vm-full-01.example.com:4243"])
+        self.assertTrue(
+            utils.dictContainsSubset(
+                {
+                    "__param_target": "other.host.xyz",
+                },
+                data_list[1]["labels"],
+            )
+        )
 
         self.assertEqual(data_list[2]["targets"], ["another.host.xyz:4244"])
         for data in data_list:

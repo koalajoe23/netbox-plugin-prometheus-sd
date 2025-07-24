@@ -37,6 +37,7 @@ class SDConfigContextDuplicateSerializer(serializers.ListSerializer):
                     and "metrics_path" not in prometheus_sd_config
                     and "scheme" not in prometheus_sd_config
                     and "host" not in prometheus_sd_config
+                    and "params" not in prometheus_sd_config
                 ):
                     continue
 
