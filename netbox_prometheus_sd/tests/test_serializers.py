@@ -568,11 +568,26 @@ class PrometheusServiceSerializerTests(TestCase):
             )
             self.assertTrue(
                 utils.dictContainsSubset(
+                    {"__meta_netbox_primary_ip_dns_name": "vm-full-01.example.com"}, data["labels"]
+                )
+            )
+            self.assertTrue(
+                utils.dictContainsSubset(
                     {"__meta_netbox_primary_ip4": "192.168.0.1"}, data["labels"]
                 )
             )
             self.assertTrue(
                 utils.dictContainsSubset(
+                    {"__meta_netbox_primary_ip4_dns_name": "vm-full-01.example.com"}, data["labels"]
+                )
+            )
+            self.assertTrue(
+                utils.dictContainsSubset(
                     {"__meta_netbox_primary_ip6": "2001:db8:1701::2"}, data["labels"]
+                )
+            )
+            self.assertTrue(
+                utils.dictContainsSubset(
+                    {"__meta_netbox_primary_ip6_dns_name": "vm-full-01.example.com"}, data["labels"]
                 )
             )

@@ -104,10 +104,12 @@ def build_vm_full(name, ip_octet=1):
     vm.custom_field_data = build_custom_fields()
     vm.role = DeviceRole.objects.get_or_create(name="VM", slug="vm", vm_role=True)[0]
     vm.primary_ip4 = IPAddress.objects.get_or_create(
-        address=f"192.168.0.{ip_octet}/24"
+        address=f"192.168.0.{ip_octet}/24",
+        dns_name=name
     )[0]
     vm.primary_ip6 = IPAddress.objects.get_or_create(
-        address=f"2001:db8:1701::{ip_octet+1}/64"
+        address=f"2001:db8:1701::{ip_octet+1}/64",
+        dns_name=name
     )[0]
 
     vm.tags.add("Tag1")

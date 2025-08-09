@@ -89,17 +89,21 @@ def extract_cluster(obj, labels: LabelDict):
 def extract_primary_ip(obj, labels: LabelDict):
     if getattr(obj, "primary_ip", None) is not None:
         labels["primary_ip"] = str(IPNetwork(obj.primary_ip.address).ip)
+        labels["primary_ip_dns_name"] = obj.primary_ip.dns_name
 
     if getattr(obj, "primary_ip4", None) is not None:
         labels["primary_ip4"] = str(IPNetwork(obj.primary_ip4.address).ip)
+        labels["primary_ip4_dns_name"] = obj.primary_ip.dns_name
 
     if getattr(obj, "primary_ip6", None) is not None:
         labels["primary_ip6"] = str(IPNetwork(obj.primary_ip6.address).ip)
+        labels["primary_ip6_dns_name"] = obj.primary_ip.dns_name
 
 
 def extract_oob_ip(obj, labels: LabelDict):
     if getattr(obj, "oob_ip", None) is not None:
         labels["oob_ip"] = str(IPNetwork(obj.oob_ip.address).ip)
+        labels["oob_ip_dns_name"] = obj.primary_ip.dns_name
 
 
 def extracts_platform(obj, label: LabelDict):

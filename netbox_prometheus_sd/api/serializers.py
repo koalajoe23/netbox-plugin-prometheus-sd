@@ -216,6 +216,8 @@ class PrometheusIPAddressSerializer(serializers.ModelSerializer):
         )
         if obj.role:
             labels["role"] = obj.role
+        if obj.dns_name:
+            labels["dns_name"] = obj.dns_name
 
         utils.extract_tags(obj, labels)
         utils.extract_tenant(obj, labels)
